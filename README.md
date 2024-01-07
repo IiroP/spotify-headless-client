@@ -12,43 +12,12 @@ This project is an unofficial client for Spotify Connect. It uses Spotify Web Pl
 	SPOTIFY_CLIENT_SECRET='your client secret'
 	```
 
-## Platform-specific settings
-*This part is subject to change as the current workflow is not very user-friendly*
-
-### Puppeteer configuration for Desktop (x64):
-  
-```js
-browser = await puppeteer.launch({
-	headless: true,
-	args: [
-		'--use-fake-ui-for-media-stream',
-	],
-	extraPrefsFirefox: {
-		'media.gmp-manager.updateEnabled': true,
-		'media.eme.enabled': true,
-		'media.autoplay.default': 0,
-	},
-	ignoreDefaultArgs: ['--mute-audio'],
-	product: 'firefox',
-});
-```
-
-### Puppeteer configuration for Raspberry Pi
-
-```js
-browser = await puppeteer.launch({
-	headless: "new",
-	args: ["--disable-gpu"],
-	ignoreDefaultArgs: ['--mute-audio'],
-	executablePath: '/usr/bin/chromium-browser',
-});
-```
-
 ## Installation
 
 - In ideal cases: `npm install`
 - To install Firefox, run `npx puppeteer browsers install firefox`
 - Set up API access as instructed
+- Change default config values if necessary
 
 ## Usage
 
@@ -56,11 +25,21 @@ browser = await puppeteer.launch({
 - Using any device, go to `http://[server ip]:5000` for authentication
 - After successful authentication, the device should show up in Spotify as target
 
+## Configuration
+
+- In file `config/default.json`
+	- `deviceName` is how the device appears on Spotify
+	- `browser` is one of the predefined browser configurations
+		- `chrome` is default
+		- `firefox` uses Firefox (see known issues)
+		- `raspberry` is for Raspberry Pi (requires `chromium-browser` to be installed)
+
+
 ## Known issues
 
 - Audio lags/stutters relatively often
-- Configuration is hardcoded
-- Authentication is not saved and the lifetime of token is not tested
+- Authentication is not saved
+- Firefox may not support the exposed getToken function
 
 ## Inspired by
 
