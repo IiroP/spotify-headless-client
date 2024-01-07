@@ -1,6 +1,6 @@
 # Headless Spotify client
 
-This project is provided an unofficial client for Spotify Connect. It uses Spotify Web Playback API running on a headless browser instance. Spotify requires Premium subscription to use the API.
+This project is an unofficial client for Spotify Connect. It uses Spotify Web Playback API running on a headless browser instance. Spotify requires Premium subscription to use the API.
 
 ## Setting up API access
 - Register a new application to [Spotify Developer](https://developer.spotify.com/)
