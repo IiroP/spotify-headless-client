@@ -1,7 +1,7 @@
 const dotenv = require('dotenv');
 const express = require('express');
-const player = require('./puppeteer.js');
-const auth = require('./auth.js');
+const player = require('./components/puppeteer.js');
+const auth = require('./components/auth.js');
 
 const port = 5000;
 
