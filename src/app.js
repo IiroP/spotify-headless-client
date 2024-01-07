@@ -1,5 +1,5 @@
 const express = require('express');
-const player = require('./components/puppeteer.js');
+const player = require('./components/player.js');
 const auth = require('./components/auth.js');
 
 const port = 5000;
