@@ -1,4 +1,3 @@
-const dotenv = require('dotenv');
 const express = require('express');
 const player = require('./components/puppeteer.js');
 const auth = require('./components/auth.js');
