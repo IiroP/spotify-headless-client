@@ -22,7 +22,7 @@ app.get('/auth/callback', async (req, res) => {
 
 // Front page
 app.get('/', (req, res) => {
-	if (auth.token() == "") {
+	if (!auth.ready()) {
 		res.redirect('/auth/login');
 	} else {
 		player.connect(auth.token);

@@ -56,7 +56,11 @@ const loginCallback = async (req, res) => {
 
 const parseResponse = (response) => {
 	access_token = response.data.access_token;
-	refresh_token = response.data.refresh_token;
+
+	if (response.data.refresh_token != undefined) {
+		// Only update refresh token if it is returned
+		refresh_token = response.data.refresh_token;
+	}
 
 	const expiryMilliseconds = response.data.expires_in * 1000;
 	const date = new Date(response.headers.date);
@@ -84,6 +88,8 @@ const refreshToken = async () => {
 
 const getToken = () => {
 	if (refresh_token.length > 0 && new Date() > token_expiry) {
+		refreshToken();
+	} else if (access_token.length == 0 && refresh_token.length > 0) {
 		refreshToken();
 	}
 	return access_token;
