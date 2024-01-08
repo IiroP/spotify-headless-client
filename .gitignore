@@ -5,3 +5,9 @@ node_modules/
 
 # Api keys
 .env
+
+# Token file
+.token.json
+
+# Local config
+config/local.json

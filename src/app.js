@@ -35,6 +35,12 @@ app.get('/play', (req, res) => res.sendFile(__dirname + '/player.html'));
 
 app.listen(port, () => {
 	console.log(`Listening at http://localhost:${port}`)
-})
+});
 
+// If authenticated, connect automatically
+if (auth.ready()) {
+	player.connect(auth.token);
+} else {
+	console.log(`Authentication required, visit http://localhost:${port} using your browser`);
+}
 

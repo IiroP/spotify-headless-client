@@ -1,5 +1,6 @@
 const dotenv = require('dotenv');
 const axios = require('axios');
+const fs = require('fs');
 
 // Client id and secret
 dotenv.config();
@@ -7,9 +8,11 @@ const spotify_client_id = process.env.SPOTIFY_CLIENT_ID
 const spotify_client_secret = process.env.SPOTIFY_CLIENT_SECRET
 
 // Tokens
-let access_token = "";
-let refresh_token = "";
-let token_expiry = 0;
+const filename = ".token.json"
+const data = fs.existsSync(filename) ? JSON.parse(fs.readFileSync(filename)) : {};
+let access_token = data.access_token ?? "";
+let refresh_token = data.refresh_token ?? "";
+let token_expiry = new Date(data.token_expiry ?? 0);
 
 // Login / get access token (from https://developer.spotify.com/documentation/web-playback-sdk/howtos/web-app-player)
 const login = (req, res) => {
@@ -58,6 +61,7 @@ const parseResponse = (response) => {
 	const expiryMilliseconds = response.data.expires_in * 1000;
 	const date = new Date(response.headers.date);
 	token_expiry = new Date(date.getTime() + expiryMilliseconds);
+	fs.writeFileSync(filename, JSON.stringify({ access_token, refresh_token, token_expiry }));
 };
 
 const refreshToken = async () => {
@@ -80,12 +84,14 @@ const refreshToken = async () => {
 
 const getToken = () => {
 	if (refresh_token.length > 0 && new Date() > token_expiry) {
-		console.log("Refreshing token");
 		refreshToken();
 	}
 	return access_token;
 }
 
+const ready = () => refresh_token != "";
+
 exports.login = login;
 exports.loginCallback = loginCallback;
 exports.token = getToken;
+exports.ready = ready;

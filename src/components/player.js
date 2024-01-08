@@ -50,13 +50,10 @@ const start = async () => {
 }
 
 const connect = async (getToken) => {
-	// Start system first
+	// Start system first but only once
 	if (page == null || page == undefined) {
 		await start();
-	}
-
-	// Do not connect if already connected
-	if (getToken() == access_token) {
+	} else {
 		return;
 	}
 

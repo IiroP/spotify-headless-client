@@ -27,7 +27,7 @@ This project is an unofficial client for Spotify Connect. It uses Spotify Web Pl
 
 ## Configuration
 
-- In file `config/default.json`
+- Defaults are in file `config/default.json`, you can override them directly or in `config/local.json`
 	- `deviceName` is how the device appears on Spotify
 	- `browser` is one of the predefined browser configurations
 		- `chrome` is default
@@ -38,7 +38,6 @@ This project is an unofficial client for Spotify Connect. It uses Spotify Web Pl
 ## Known issues
 
 - Audio lags/stutters relatively often
-- Authentication is not saved
 - Firefox may not support the exposed getToken function
 
 ## Inspired by
