@@ -46,7 +46,10 @@ const start = async () => {
 	}
 	browser = await puppeteer.launch(browserConf);
 	page = await browser.newPage();
-	page.on('console', (log) => console.log(`[Browser] ${log.type()}: ${log.text()}`));
+	page.on('console', (log) => console.log(`[Browser] ${log.type()}: ${log.text()}`)); // normal console
+	page.on('pageerror', (err) => console.log(`[Browser] ${err.message}`)); // page error
+	page.on('requestfailed', (req) => console.log(`[Browser] ${req.failure().errorText}, ${req.url()}`)); // failed request
+	// About logging errors, see this: https://github.com/puppeteer/puppeteer/issues/1512
 }
 
 const connect = async (getToken) => {
@@ -64,7 +67,7 @@ const connect = async (getToken) => {
 
 	// Do not use static token
 	await page.exposeFunction("getToken", getToken);
-	
+
 	await page.evaluate(async (deviceName) => {
 		window.player = new window.Spotify.Player({
 			name: deviceName,
