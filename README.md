@@ -34,6 +34,12 @@ This project is an unofficial client for Spotify Connect. It uses Spotify Web Pl
 		- `firefox` uses Firefox (see known issues)
 		- `raspberry` is for Raspberry Pi (requires `chromium-browser` to be installed)
 
+## API Control
+
+- The application has some API endpoints for controlling the player via `HTTP POST` requests
+	- `/api/play-pause` for toggling between play and pause
+	- `/api/next` for skipping to next track
+	- `/api/prev` for returning to previous track
 
 ## Known issues
 

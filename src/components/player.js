@@ -121,6 +121,21 @@ const connect = async (getToken) => {
 	console.log('Connected');
 }
 
+// Toggle play/pause
+const playPause = async () => {
+	return await page.evaluate(async () => await window.player.togglePlay());
+}
+
+// Previous track
+const prevTrack = async () => {
+	await page.evaluate(async () => await window.player.previousTrack());
+}
+
+// Next track
+const nextTrack = async () => {
+	await page.evaluate(async () => await window.player.nextTrack());
+}
+
 // Stop the instance
 const stop = async () => {
 	await browser.close();
@@ -128,3 +143,6 @@ const stop = async () => {
 
 exports.connect = connect;
 exports.stop = stop;
+exports.playPause = playPause;
+exports.prevTrack = prevTrack;
+exports.nextTrack = nextTrack;

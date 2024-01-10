@@ -33,6 +33,20 @@ app.get('/', (req, res) => {
 // Player page, used by Puppeteer
 app.get('/play', (req, res) => res.sendFile(__dirname + '/player.html'));
 
+// Control player
+app.post('/api/play-pause', (req, res) => {
+	player.playPause();
+	res.sendStatus(204);
+});
+app.post('/api/next', (req, res) => {
+	player.nextTrack();
+	res.sendStatus(204);
+});
+app.post('/api/prev', (req, res) => {
+	player.prevTrack();
+	res.sendStatus(204);
+});
+
 app.listen(port, () => {
 	console.log(`Listening at http://localhost:${port}`)
 });
