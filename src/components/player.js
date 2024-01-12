@@ -48,7 +48,9 @@ const start = async () => {
 	page = await browser.newPage();
 	page.on('console', (log) => console.log(`[Browser] ${log.type()}: ${log.text()}`)); // normal console
 	page.on('pageerror', (err) => console.log(`[Browser] ${err.message}`)); // page error
-	page.on('requestfailed', (req) => console.log(`[Browser] ${req.failure().errorText}, ${req.url()}`)); // failed request
+	if (browserConf.product != "firefox") {
+		page.on('requestfailed', (req) => console.log(`[Browser] ${req.failure().errorText}, ${req.url()}`)); // failed request
+	}
 	// About logging errors, see this: https://github.com/puppeteer/puppeteer/issues/1512
 }
 
@@ -118,7 +120,6 @@ const connect = async (getToken) => {
 			}
 		});
 	});
-	console.log('Connected');
 }
 
 // Toggle play/pause
