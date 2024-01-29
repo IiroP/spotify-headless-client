@@ -26,6 +26,19 @@ const chrome = {
 };
 
 const raspberry = {
+	headless: true,
+	dumpio: true,
+	extraPrefsFirefox: {
+		'media.gmp-manager.updateEnabled': true,
+		'media.eme.enabled': true,
+		'media.autoplay.default': 0,
+	},
+	protocol: 'webDriverBiDi',
+	product: 'firefox',
+	executablePath: '/usr/bin/firefox',
+};
+
+const raspberry_chromium = {
 	headless: "new",
 	dumpio: true,
 	ignoreDefaultArgs: ['--mute-audio'],
@@ -42,6 +55,9 @@ const start = async () => {
 			break;
 		case "raspberry":
 			browserConf = raspberry;
+			break;
+		case "raspberry_chromium":
+			browserConf = raspberry_chromium;
 			break;
 	}
 	browser = await puppeteer.launch(browserConf);
