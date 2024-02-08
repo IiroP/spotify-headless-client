@@ -158,8 +158,14 @@ const stop = async () => {
 	await browser.close();
 }
 
+// Get status info
+const status = async () => {
+	return await page.evaluate(async () => await window.player.getCurrentState());
+}
+
 exports.connect = connect;
 exports.stop = stop;
 exports.playPause = playPause;
 exports.prevTrack = prevTrack;
 exports.nextTrack = nextTrack;
+exports.status = status;

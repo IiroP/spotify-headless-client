@@ -46,6 +46,9 @@ app.post('/api/prev', (req, res) => {
 	player.prevTrack();
 	res.sendStatus(204);
 });
+app.get('/api/status', async (req, res) => {
+	res.json(await player.status());
+});
 
 app.listen(port, () => {
 	console.log(`Listening at http://localhost:${port}`)
