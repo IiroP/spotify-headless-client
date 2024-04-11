@@ -49,6 +49,7 @@ subscription to use the API.
   - `/api/play-pause` for toggling between play and pause
   - `/api/next` for skipping to next track
   - `/api/prev` for returning to previous track
+  - `/api/reset` for resetting the Spotify Connection
 - To get status info, there is `HTTP GET` endpoint:
   - `/api/status` returns
     [WebPlaybackState](https://developer.spotify.com/documentation/web-playback-sdk/reference#webplaybackstate-object)

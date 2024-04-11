@@ -158,6 +158,19 @@ const stop = async () => {
 	await browser.close();
 }
 
+const reset = async () => {
+	return await page.evaluate(async () => {
+		await window.player.disconnect();
+		window.player.connect().then(success => {
+			if (success) {
+				console.log('The Web Playback SDK successfully connected to Spotify!');
+			} else {
+				console.error('The Web Playback SDK could not connect to Spotify.');
+			}
+		});
+	});
+}
+
 // Get status info
 const status = async () => {
 	return await page.evaluate(async () => await window.player.getCurrentState());
@@ -169,3 +182,4 @@ exports.playPause = playPause;
 exports.prevTrack = prevTrack;
 exports.nextTrack = nextTrack;
 exports.status = status;
+exports.reset = reset;
