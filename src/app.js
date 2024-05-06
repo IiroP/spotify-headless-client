@@ -26,7 +26,8 @@ app.get('/', (req, res) => {
 		res.redirect('/auth/login');
 	} else {
 		player.connect(auth.token);
-		res.send(`Successfully authenticated, you can close this page`);
+		//res.send(`Successfully authenticated, you can close this page`);
+		res.sendFile(__dirname + '/templates/control.html');
 	}
 });
 
