@@ -7,6 +7,7 @@ let access_token = null;
 
 // Read config
 const deviceName = config.get("deviceName");
+const restartOnError = config.get("restartOnError");
 
 const firefox = {
 	headless: true,
@@ -63,7 +64,14 @@ const start = async () => {
 	browser = await puppeteer.launch(browserConf);
 	page = await browser.newPage();
 	page.on('console', (log) => console.log(`[Browser] ${log.type()}: ${log.text()}`)); // normal console
-	page.on('pageerror', (err) => console.log(`[Browser] ${err.message}`)); // page error
+	page.on('pageerror', (err) => {
+		// page error
+		console.log(`[Browser] ${err.message}`);
+		if (restartOnError) {
+			console.log("Page error detected, restarting...");
+			reset();
+		}
+	}); 
 	if (browserConf.product != "firefox") {
 		page.on('requestfailed', (req) => console.log(`[Browser] ${req.failure().errorText}, ${req.url()}`)); // failed request
 	}
