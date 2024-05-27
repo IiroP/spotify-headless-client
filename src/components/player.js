@@ -63,11 +63,11 @@ const start = async () => {
 	}
 	browser = await puppeteer.launch(browserConf);
 	page = await browser.newPage();
-	page.on('console', (log) => console.log(`[Browser] ${log.type()}: ${log.text()}`)); // normal console
+	page.on('console', (log) => console.log(`[Console] ${log.type()}: ${log.text()}`)); // normal console
 	page.on('pageerror', (err) => {
 		// page error
-		console.log(`[Browser] ${err.message}`);
-		if (restartOnError) {
+		console.log(`[Page] ${err.message}`);
+		if (restartOnError && err.name == "CloudPlaybackClientError") {
 			console.log("Page error detected, restarting...");
 			reset();
 		}
