@@ -17,7 +17,7 @@ const firefox = {
 		'media.autoplay.default': 0,
 	},
 	protocol: 'webDriverBiDi',
-	product: 'firefox',
+	browser: 'firefox',
 };
 
 const chrome = {
@@ -35,7 +35,7 @@ const raspberry = {
 		'media.autoplay.default': 0,
 	},
 	protocol: 'webDriverBiDi',
-	product: 'firefox',
+	browser: 'firefox',
 	executablePath: '/usr/bin/firefox',
 };
 
@@ -71,8 +71,8 @@ const start = async () => {
 			console.log("Page error detected, restarting...");
 			reset();
 		}
-	}); 
-	if (browserConf.product != "firefox") {
+	});
+	if (browserConf.browser != "firefox") {
 		page.on('requestfailed', (req) => console.log(`[Browser] ${req.failure().errorText}, ${req.url()}`)); // failed request
 	}
 	// About logging errors, see this: https://github.com/puppeteer/puppeteer/issues/1512
