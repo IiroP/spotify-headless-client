@@ -10,7 +10,7 @@
     "config": "^3.3.11",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "puppeteer": "^21.11.0",
+    "puppeteer": "^23",
     "store": "^2.0.12"
   },
   "scripts": {
