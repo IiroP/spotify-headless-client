@@ -1,21 +1,22 @@
-const dotenv = require('dotenv');
-const axios = require('axios');
-const fs = require('fs');
+import axios, { AxiosResponse } from 'axios';
+import dotenv from 'dotenv';
+import { Request, Response } from 'express';
+import fs from 'fs';
 
 // Client id and secret
 dotenv.config();
-const spotify_client_id = process.env.SPOTIFY_CLIENT_ID
-const spotify_client_secret = process.env.SPOTIFY_CLIENT_SECRET
+const spotify_client_id: string = process.env.SPOTIFY_CLIENT_ID ?? "";
+const spotify_client_secret: string = process.env.SPOTIFY_CLIENT_SECRET ?? "";
 
 // Tokens
 const filename = ".token.json"
-const data = fs.existsSync(filename) ? JSON.parse(fs.readFileSync(filename)) : {};
-let access_token = data.access_token ?? "";
-let refresh_token = data.refresh_token ?? "";
-let token_expiry = new Date(data.token_expiry ?? 0);
+const data = fs.existsSync(filename) ? JSON.parse(fs.readFileSync(filename, 'utf-8')) : {};
+let access_token: string = data.access_token ?? "";
+let refresh_token: string = data.refresh_token ?? "";
+let token_expiry: Date = new Date(data.token_expiry ?? 0);
 
 // Login / get access token (from https://developer.spotify.com/documentation/web-playback-sdk/howtos/web-app-player)
-const login = (req, res) => {
+const login = (req: Request, res: Response) => {
 	const scope = 'streaming user-read-private user-read-email';
 	const state = Math.random().toString();
 	console.log(`Redirect URL is http://${req.get('host')}/auth/callback`);
@@ -32,8 +33,8 @@ const login = (req, res) => {
 }
 
 // Login callback
-const loginCallback = async (req, res) => {
-	const code = req.query.code;
+const loginCallback = async (req: Request, res: Response) => {
+	const code: string = (req.query.code as string) ?? "";
 
 	const authOptions = {
 		url: 'https://accounts.spotify.com/api/token',
@@ -54,7 +55,7 @@ const loginCallback = async (req, res) => {
 	return { access_token, refresh_token };
 }
 
-const parseResponse = (response) => {
+const parseResponse = (response: AxiosResponse) => {
 	access_token = response.data.access_token;
 
 	if (response.data.refresh_token != undefined) {
@@ -97,7 +98,4 @@ const getToken = () => {
 
 const ready = () => refresh_token != "";
 
-exports.login = login;
-exports.loginCallback = loginCallback;
-exports.token = getToken;
-exports.ready = ready;
+export { login, loginCallback, getToken as token, ready };

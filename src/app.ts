@@ -1,6 +1,6 @@
-const express = require('express');
-const player = require('./components/player.js');
-const auth = require('./components/auth.js');
+import express from 'express';
+import * as player from './components/player';
+import * as auth from './components/auth';
 
 const port = 5000;
 
