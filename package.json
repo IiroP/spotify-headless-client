@@ -25,6 +25,6 @@
   },
   "scripts": {
     "dev": "nodemon src/app.ts",
-    "start": "node src/app.ts"
+    "start": "ts-node src/app.ts"
   }
 }
