@@ -1,4 +1,4 @@
-import puppeteer, { Browser, Page, PuppeteerLaunchOptions } from "puppeteer";
+import puppeteer, { Browser, Page, LaunchOptions } from "puppeteer";
 import config from "config";
 
 declare global {
@@ -18,7 +18,7 @@ let access_token = null;
 const deviceName = config.get("deviceName");
 const restartOnError = config.get("restartOnError");
 
-const firefox: PuppeteerLaunchOptions = {
+const firefox: LaunchOptions = {
   headless: true,
   extraPrefsFirefox: {
     "media.gmp-manager.updateEnabled": true,
@@ -29,13 +29,13 @@ const firefox: PuppeteerLaunchOptions = {
   browser: "firefox",
 };
 
-const chrome: PuppeteerLaunchOptions = {
+const chrome: LaunchOptions = {
   headless: true,
   ignoreDefaultArgs: ["--mute-audio", "--disable-component-update"],
   channel: "chrome",
 };
 
-const raspberry: PuppeteerLaunchOptions = {
+const raspberry: LaunchOptions = {
   headless: true,
   dumpio: true,
   extraPrefsFirefox: {
@@ -48,7 +48,7 @@ const raspberry: PuppeteerLaunchOptions = {
   executablePath: "/usr/bin/firefox",
 };
 
-const raspberry_chromium: PuppeteerLaunchOptions = {
+const raspberry_chromium: LaunchOptions = {
   headless: true,
   dumpio: true,
   ignoreDefaultArgs: ["--mute-audio"],
@@ -58,7 +58,7 @@ const raspberry_chromium: PuppeteerLaunchOptions = {
 
 const start = async () => {
   const selected = config.get("browser");
-  let browserConf: PuppeteerLaunchOptions = chrome;
+  let browserConf: LaunchOptions = chrome;
   switch (selected) {
     case "firefox":
       browserConf = firefox;
@@ -73,7 +73,7 @@ const start = async () => {
   browser = await puppeteer.launch(browserConf);
   page = await browser.newPage();
   page.on("console", (log) =>
-    console.log(`[Browser] ${log.type()}: ${log.text()}`)
+    console.log(`[Browser] ${log.type()}: ${log.text()}`),
   ); // normal console
   page.on("pageerror", (err) => {
     // page error
@@ -85,7 +85,7 @@ const start = async () => {
   });
   if (browserConf.browser != "firefox") {
     page.on("requestfailed", (req) =>
-      console.log(`[Browser] ${req.failure()?.errorText}, ${req.url()}`)
+      console.log(`[Browser] ${req.failure()?.errorText}, ${req.url()}`),
     ); // failed request
   }
   // About logging errors, see this: https://github.com/puppeteer/puppeteer/issues/1512
@@ -197,7 +197,7 @@ const reset = async () => {
 // Get status info
 const status = async () => {
   return await page!.evaluate(
-    async () => await window.player.getCurrentState()
+    async () => await window.player.getCurrentState(),
   );
 };
 

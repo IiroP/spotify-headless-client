@@ -5,22 +5,22 @@
   "devDependencies": {
     "@eslint/js": "^9.16.0",
     "@types/config": "^3.3.5",
-    "@types/express": "^5.0.0",
-    "@types/node": "^22.8.6",
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.19.17",
     "@types/spotify-web-playback-sdk": "^0.1.19",
-    "eslint": "^9.16.0",
-    "globals": "^15.13.0",
-    "nodemon": "^3.1.0",
+    "eslint": "^9.39.4",
+    "globals": "^15.15.0",
+    "nodemon": "^3.1.14",
     "ts-node": "^10.9.2",
-    "typescript": "^5.6.3",
-    "typescript-eslint": "^8.16.0"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.58.1"
   },
   "dependencies": {
-    "axios": "^1.6.8",
-    "config": "^3.3.11",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "puppeteer": "^23",
+    "axios": "^1.15.0",
+    "config": "^3.3.12",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.1",
+    "puppeteer": "^23.11.1",
     "store": "^2.0.12"
   },
   "scripts": {
