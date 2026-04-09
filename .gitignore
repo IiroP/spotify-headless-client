@@ -11,3 +11,6 @@ node_modules/
 
 # Local config
 config/local.json
+
+# JS files
+*.js
